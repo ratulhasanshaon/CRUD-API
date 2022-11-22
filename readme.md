@@ -26,7 +26,7 @@ Next, you need to add it in the settings.py file as follows:
 
 example/settings.py
 
-
+```
 ....
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'todo',
 ]
-
+```
 
 
 # Step 4: Create a Model
@@ -49,7 +49,7 @@ todo/models.py
 
 from django.db import models
 
-
+```
 class Todo(models.Model):
     title = models.CharField(max_length = 100)
     body = models.CharField(max_length = 100)
@@ -60,13 +60,14 @@ class Todo(models.Model):
     def __str___(self):
         return self.title
 
-
+```
 
 Ok, all set. We can engender a migrations file for this change, then integrate it to our database via migrate.
 
+```
 python manage.py makemigrations
 python manage.py migrate
-
+```
 
 # Step 5: Creating the Serializers
 
@@ -74,7 +75,7 @@ In this step, we need to create Serializers allow complex data such as querysets
 
 todo/serializers.py
 
-
+```
 from rest_framework import serializers
 from todo.models import Todo
 
@@ -83,14 +84,14 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = "__all__"
 
+```
 
 # Step 6: Creating the Views
 
 In this step, we need to create the views for performing the fetch record to the database.Open the todo/views.py file and add:
 
 todo/views.py
-
-
+```
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
@@ -98,10 +99,11 @@ from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import UpdateAPIView
 from todo.serializers import TodoSerializer
 from todo.models import Todo
-
+```
 
 # Create your views here.
 
+```
 class ListTodoAPIView(ListAPIView):
     """This endpoint list all of the available todos from the database"""
     queryset = Todo.objects.all()
@@ -122,15 +124,14 @@ class DeleteTodoAPIView(DestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
 
-
+```
 
 # Step 7: Creating URLs
 
 In this section, we need a urls.py file within the apis app however Django doesn't create one for us with the startapp command. Create todo/urls.py with your text editor and paste below code.
 
 todo/urls.py
-
-
+```
 from django.urls import path
 from todo import views
 
@@ -140,13 +141,15 @@ urlpatterns = [
     path("update/<int:pk>/",views.UpdateTodoAPIView.as_view(),name="update_todo"),
     path("delete/<int:pk>/",views.DeleteTodoAPIView.as_view(),name="delete_todo")
 ]
-
+```
 
 
 Next, we will require the modify the urls.py your root preoject folder lets update the file.
 
 
 example/urls.py
+
+```
 from django.contrib import admin
 from django.urls import path, include
 
@@ -154,7 +157,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/todo/',include("todo.urls"))
 ]
-
+```
 
 # Run the Server
 
@@ -166,20 +169,20 @@ In this step, we’ll run the local development server for playing with our app 
 # Postman POST request:
 
 To create a new Todo we make a POST request to http://localhost:8000/api/v1/todo/create/ with the new Todo object.
-
+```
 {
     "date_created": "2022-11-03",
     "title": "Django",
     "body": "Django is a Awesome",
     "is_completed": False
 }
-
+```
 
 ![Endpoint](../master/create-req.png)
 
 # Postman GET request:
 Making a GET request to http://localhost:8000/api/v1/todo in postman returns a list of todos.
-
+```
 [
     {
         "id": 4,
@@ -190,21 +193,21 @@ Making a GET request to http://localhost:8000/api/v1/todo in postman returns a l
         "last_modified": "2022-11-03"
     }
 ]
-
+```
 
 ![Endpoint](../master/get-req.png)
 
 # Postman PUT request:
 
 To Update a Todo we make a PUT request to http://localhost:8000/api/v1/todo/update/4/ with the Todo object fields to update and pass in Todo ID as a URL parameter.
-
+```
 {
     "date_created": "2022-11-03",
     "title": "Python",
     "body": "Python is a Awesome",
     "is_completed": False
 }
-
+```
 
 
 ![Endpoint](../master/put-req.png)
