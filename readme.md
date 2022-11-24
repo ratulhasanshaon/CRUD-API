@@ -174,7 +174,7 @@ To create a new Todo we make a POST request to http://localhost:8000/api/v1/todo
     "date_created": "2022-11-03",
     "title": "Django",
     "body": "Django is a Awesome",
-    "is_completed": False
+    "is_completed": false
 }
 ```
 
@@ -205,7 +205,7 @@ To Update a Todo we make a PUT request to http://localhost:8000/api/v1/todo/upda
     "date_created": "2022-11-03",
     "title": "Python",
     "body": "Python is a Awesome",
-    "is_completed": False
+    "is_completed": false
 }
 ```
 
@@ -221,5 +221,5 @@ To Delete a Todo we make a DELETE request to http://localhost:8000/api/v1/todo/d
 ![Endpoint](../master/delete-req.png)
 
 
-
+## I hope it helps you
 ## Thank You
