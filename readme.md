@@ -221,5 +221,5 @@ To Delete a Todo we make a DELETE request to http://localhost:8000/api/v1/todo/d
 ![Endpoint](../master/delete-req.png)
 
 
-## I hope it helps you
+
 ## Thank You
